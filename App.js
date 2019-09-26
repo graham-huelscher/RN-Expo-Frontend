@@ -1,26 +1,16 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import ImageJSX from './components/ImageJSX';
-import Header from './components/Header'
-import UserBar from './components/UserBar';
+import React, {Component, useState} from 'react';
+import { View } from 'react-native';
+import AppHeader from './components/AppHeader'
+import PostFeed from './components/PostFeed'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Header />
-      <UserBar />
-      <ImageJSX />
-      <View>
-        
+class App extends Component {
+  render(){
+    return (
+      <View >
+        <AppHeader />
+        <PostFeed  />
       </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    );
   }
-});
+}
+export default App

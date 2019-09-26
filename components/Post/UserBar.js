@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, Image, View } from 'react-native'
+import config from '../../config';
 
 export default () => {
     return (
@@ -23,7 +24,7 @@ export default () => {
 const styles = StyleSheet.create({
     userBar: {
       width: '100%',
-      height: 50,
+      height: config.styleConstants.rowHeight,
       backgroundColor: 'white',
       flexDirection: 'row',
       justifyContent: 'space-between',

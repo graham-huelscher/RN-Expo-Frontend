@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import config from '../config';
 
 export default () => {
     return (
@@ -14,7 +15,7 @@ export default () => {
 const styles = StyleSheet.create({
     main: {
         width: '100%',
-        height: 50,
+        height: config.styleConstants.rowHeight,
         marginTop: 25, 
         backgroundColor: 'rgb(250, 250, 250)',
         justifyContent: "center",
