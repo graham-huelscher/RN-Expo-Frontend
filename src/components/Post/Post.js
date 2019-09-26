@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native'
-import { UserBar, ImageJSX, LikesBar }  from './index'
+import { UserBar, ImageJSX, LikesBar } from './index'
 
 class Post extends Component {
     state = {
-        isLiked: false
+        isLiked: false,
+        likeCount: 365
     }
 
     toggleImageLike = () => {
-        console.log('here')
+        const incrementOrDecrement = this.state.isLiked ? -1 : 1
         this.setState({
-            isLiked: !this.state.isLiked
+            isLiked: !this.state.isLiked,
+            likeCount: this.state.likeCount + incrementOrDecrement
         })
     }
     render() {
         return (
             <View style={styles.container}>
-                <UserBar />  
+                <UserBar />
                 <ImageJSX toggleImageLike={this.toggleImageLike} />
-                <LikesBar isLiked={this.state.isLiked} />
+                <LikesBar
+                    isLiked={this.state.isLiked}
+                    likeCount={this.state.likeCount}
+                />
             </View>
         )
     }

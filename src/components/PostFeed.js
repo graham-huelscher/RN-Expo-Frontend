@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import Post from './Post/Post'
 
 class PostFeed extends Component {

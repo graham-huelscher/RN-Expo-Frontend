@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import config from '../config';
+import config from '../config'
 
 export default () => {
     return (

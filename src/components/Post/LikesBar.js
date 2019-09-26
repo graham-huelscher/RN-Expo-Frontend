@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-import config from '../../config';
+import config from '../../config'
 import CountDown from 'react-native-countdown-component';
 
 export default (props) => {
@@ -14,16 +14,17 @@ export default (props) => {
         <AntDesign name={heartDetails.name} size={32} color={heartDetails.color} />
 
         <Text style={{ marginLeft: 10 }}>
-          365
+          {props.likeCount}
         </Text>
       </View>
       <CountDown
         until={86400}
         onFinish={() => alert('finished')}
-        size={10}
-        digitStyle={{backgroundColor: 'white'}}
-        separatorStyle={{color: '#000'}}
+        size={15}
+        digitStyle={{backgroundColor: 'white', margin: 0, padding: 0}}
         timeToShow={[ 'H', 'M', 'S']}
+        timeLabels={{m: null, s: null}}
+        showSeparator
       />
       <Text>
         15 km
