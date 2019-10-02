@@ -1,12 +1,8 @@
 import React, { Component, useState } from 'react';
 import { View, Button, AsyncStorage } from 'react-native';
-import AppHeader from '../components/AppHeader'
 import PostFeed from '../components/PostFeed'
 
-class MainAppFunctionality extends Component {
-  static navigationOptions = {
-    title: 'Instagram',
-  };
+class MainFeed extends Component {
 
   signOutAsync = async () => {
     await AsyncStorage.clear();
@@ -22,4 +18,4 @@ class MainAppFunctionality extends Component {
     );
   }
 }
-export default MainAppFunctionality
+export default MainFeed

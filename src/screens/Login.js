@@ -1,21 +1,27 @@
-import React, { Component, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
+import {
+  AsyncStorage,
+  Button,
+  View,
+} from 'react-native';
 
 class Login extends Component {
+    static navigationOptions = {
+        title: 'Please sign in',
+    };
 
-    login = () => {
-        //Navigate to the next page
-    }
     render() {
         return (
-            <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-                onPress={() => this.login()}
-            >
-                <Text>
-                    Login Screen
-          </Text>
-            </TouchableOpacity>
+            <View>
+                <Button title="Sign in!" onPress={this._signInAsync} />
+            </View>
         );
     }
+
+    _signInAsync = async () => {
+        await AsyncStorage.setItem('userToken', 'abc');
+        this.props.navigation.navigate('App');
+    };
 }
+
 export default Login

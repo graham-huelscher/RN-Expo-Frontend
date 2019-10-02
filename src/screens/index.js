@@ -1,9 +1,14 @@
-import MainAppFunctionality from './MainAppFunctionality'
+import MainFeed from './MainFeed'
 import Login from './Login'
 import AuthLoading from './AuthLoading'
+import Camera from './Camera'
+import UserActivity from './UserActivity'
+
 
 export {
-    MainAppFunctionality,
+    MainFeed,
     Login,
-    AuthLoading
+    AuthLoading,
+    Camera,
+    UserActivity
 }
