@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import {
-  AsyncStorage,
-  Button,
-  View,
-} from 'react-native';
+import { AsyncStorage, Button, View, TextInput } from 'react-native';
 
 class Login extends Component {
-    static navigationOptions = {
-        title: 'Please sign in',
-    };
+
+    // signInAsync = async () => {
+    //     await AsyncStorage.setItem('userToken', 'abc');
+    //     this.props.navigation.navigate('App');
+    // };
+
+    createAccount = () => {
+        this.props.navigation.navigate("Register")
+    }
 
     render() {
         return (
             <View>
-                <Button title="Sign in!" onPress={this._signInAsync} />
+                <Button title="New user?" onPress={this.createAccount} />
             </View>
         );
     }
-
-    _signInAsync = async () => {
-        await AsyncStorage.setItem('userToken', 'abc');
-        this.props.navigation.navigate('App');
-    };
 }
 
 export default Login

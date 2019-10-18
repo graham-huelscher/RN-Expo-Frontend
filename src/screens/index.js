@@ -1,7 +1,8 @@
 import MainFeed from './MainFeed'
 import Login from './Login'
+import Register from './Register'
 import AuthLoading from './AuthLoading'
-import Camera from './Camera'
+import Camera from './CameraScreen'
 import UserActivity from './UserActivity'
 
 
@@ -10,5 +11,6 @@ export {
     Login,
     AuthLoading,
     Camera,
-    UserActivity
+    UserActivity,
+    Register
 }

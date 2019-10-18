@@ -1,4 +1,4 @@
-import { MainFeed, Login, AuthLoading, Camera, UserActivity } from '../screens'
+import { MainFeed, Login, Register, AuthLoading, Camera, UserActivity } from '../screens'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -10,10 +10,14 @@ const Tabs = createBottomTabNavigator({
 },
   {
     initialRouteName: 'MainFeed',
+    navigationOptions: {
+      title: "instagram"
+    }
+
   })
 
 const AppStack = createStackNavigator({ Tabs });
-const AuthStack = createStackNavigator({ Login });
+const AuthStack = createStackNavigator({ Login, Register });
 
 
 export default createAppContainer(
@@ -24,10 +28,7 @@ export default createAppContainer(
       Auth: AuthStack,
     },
     {
-      initialRouteName: 'AuthLoading',
-      navigationOptions: {
-        title: "Instagram"
-      }
+      initialRouteName: 'AuthLoading'
     }
   )
 );
