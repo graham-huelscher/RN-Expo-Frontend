@@ -3,36 +3,27 @@ import { Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Row, Grid } from "react-native-easy-grid";
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import ButtonBar from './ButtonBar';
 
 export default class CameraPreview extends Component {
-    state = {
-        focus: Camera.Constants.AutoFocus.on
-    }
 
-    refocus = () => {
-        console.log('refocus')
-        this.setState({
-            focus: Camera.Constants.AutoFocus.off
-        }, ()=> this.setState({
-            focus: Camera.Constants.AutoFocus.on
-        }))
-    }
     render() {
         const camWidth = Dimensions.get("window").width
-        const camHeight = camWidth
-        return (
-            <Grid>
-                <Row>
-                    <TouchableWithoutFeedback onPress= {()=> this.refocus()}>
-                        <Camera style={{ width: camWidth, height: camHeight }} type={this.props.type} autoFocus={this.state.focus}
-                            ref={(cam) => this.cam = cam}
-                            ratio={'1:1'}
-                        />
-                    </TouchableWithoutFeedback>
+        const camHeight = camWidth * (16 / 9)
 
-                </Row>
-                <Row></Row>
-            </Grid>
+        return (
+            <Camera
+                style={{ height: camHeight, width: camWidth }}
+                type={this.props.type}
+                autoFocus={true}
+                ratio={'16:9'}
+                ref={(cam) => this.cam = cam}
+            >
+                <Grid>
+                    <Row size={4}></Row>
+                    <Row size={1}><ButtonBar /></Row>
+                </Grid>
+            </Camera>
         )
     }
 }

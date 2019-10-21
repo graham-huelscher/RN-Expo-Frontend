@@ -8,7 +8,7 @@ import { Camera } from 'expo-camera';
 class CameraScreen extends Component {
     state = {
         hasCameraPermission: null,
-        type: Camera.Constants.Type.back,
+        type: Camera.Constants.Type.front,
     };
 
     async componentDidMount() {
@@ -38,7 +38,7 @@ class CameraScreen extends Component {
         } else {
             return (
                 <View style={{ flex: 1 }}>
-                    {this.renderCamera()}
+                    {this.renderCamera()} 
                 </View>
             )
         }
