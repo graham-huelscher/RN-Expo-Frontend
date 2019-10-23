@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Row, Grid } from "react-native-easy-grid";
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import ButtonBar from './ButtonBar';
+import * as MediaLibrary from 'expo-media-library';
 
 export default class CameraPreview extends Component {
 
     takePicture = async () => {
         if (this.cam) {
-            let photo = await this.cam.takePictureAsync();
-            this.props.receivePhoto(photo)
+            const { uri } = await this.cam.takePictureAsync()
+            const asset = await MediaLibrary.createAssetAsync(uri)
+            await MediaLibrary.createAlbumAsync("Expo", asset.id, false)
+            // if( await MediaLibrary.getAlbumAsync("Expo")){
+            //     result = await MediaLibrary.addAssetsToAlbumAsync(uri, "Expo", false);
+            // }
+            // else {
+            //     result = await MediaLibrary.createAlbumAsync("Expo", uri, false)
+            // }
+            // this.props.receivePhoto(result)
         }
     };
 
@@ -33,6 +41,7 @@ export default class CameraPreview extends Component {
                         <ButtonBar
                             flipCamera={this.props.flipCamera}
                             takePicture={this.takePicture}
+                            images={this.props.images}
                         />
                     </Row>
                 </Grid>

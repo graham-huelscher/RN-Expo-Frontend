@@ -11,7 +11,7 @@ const Tabs = createBottomTabNavigator({
   {
     initialRouteName: 'MainFeed',
     navigationOptions: {
-      title: "instagram"
+      title: "Expo"
     }
 
   })

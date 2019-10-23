@@ -10,9 +10,21 @@ class CameraScreen extends Component {
     state = {
         hasCameraPermission: true,
         type: Camera.Constants.Type.back,
+        fileSystemImages: null
     };
 
     async componentDidMount() {
+        const { totalCount } = await MediaLibrary.getAssetsAsync()
+        const numImagesToGet = Math.min(totalCount, 500)
+
+        const assetResult = await MediaLibrary.getAssetsAsync({
+            sortBy: MediaLibrary.SortBy.creationTime,
+            first: numImagesToGet,
+
+        })
+        this.setState({
+            fileSystemImages: assetResult.assets
+        })
         // console.log('here') 
         // const { camStatus } = await this.getCamPermission();
         // console.log(camStatus)
@@ -44,7 +56,8 @@ class CameraScreen extends Component {
                 <CameraPreview 
                 type={this.state.type} 
                 flipCamera={this.flipCamera} 
-                receivePhoto={this.receivePhoto}                
+                receivePhoto={this.receivePhoto}
+                images={this.state.fileSystemImages}                
                 />
             )
         }
