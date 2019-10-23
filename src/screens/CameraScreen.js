@@ -1,31 +1,62 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { withNavigationFocus } from "react-navigation";
 import CameraPreview from '../components/Camera/CameraPreview'
 import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 
 class CameraScreen extends Component {
     state = {
-        hasCameraPermission: null,
-        type: Camera.Constants.Type.front,
+        hasCameraPermission: true,
+        type: Camera.Constants.Type.back,
     };
 
     async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasCameraPermission: status === 'granted' });
+        // console.log('here') 
+        // const { camStatus } = await this.getCamPermission();
+        // console.log(camStatus)
+        // console.log('here2')
+        // // const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+
+        // //console.log(mediaStatus)
+        // this.setState({ hasCameraPermission: camStatus === 'granted' });
     }
 
-    renderCamera() {
+    getCamPermission = async () => {
+
+        const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
+        return camStatus
+
+    }
+
+    receivePhoto = (photo) => {
+        console.log(photo)
+    }
+
+    renderCamera = () => {
         const isFocused = this.props.navigation.isFocused();
 
         if (!isFocused) {
             return <View />;
         } else if (isFocused) {
             return (
-                <CameraPreview type={this.state.type}/>
+                <CameraPreview 
+                type={this.state.type} 
+                flipCamera={this.flipCamera} 
+                receivePhoto={this.receivePhoto}                
+                />
             )
         }
+    }
+
+    flipCamera = () => {
+        this.setState({
+            type:
+                this.state.type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back,
+        })
     }
 
     render() {
@@ -34,11 +65,11 @@ class CameraScreen extends Component {
         if (hasCameraPermission === null) {
             return <View />;
         } else if (hasCameraPermission === false) {
-            return <Text>No access to camera</Text>;
+            return <Button title="Re-ask permissions" onPress={() => { this.getCamPermission() }}></Button>;
         } else {
             return (
                 <View style={{ flex: 1 }}>
-                    {this.renderCamera()} 
+                    {this.renderCamera()}
                 </View>
             )
         }
