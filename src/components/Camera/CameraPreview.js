@@ -11,21 +11,27 @@ export default class CameraPreview extends Component {
         if (this.cam) {
             const { uri } = await this.cam.takePictureAsync()
             const asset = await MediaLibrary.createAssetAsync(uri)
-            await MediaLibrary.createAlbumAsync("Expo", asset.id, false)
-            // if( await MediaLibrary.getAlbumAsync("Expo")){
-            //     result = await MediaLibrary.addAssetsToAlbumAsync(uri, "Expo", false);
-            // }
-            // else {
-            //     result = await MediaLibrary.createAlbumAsync("Expo", uri, false)
-            // }
-            // this.props.receivePhoto(result)
+            let album = await MediaLibrary.getAlbumAsync("Expo")
+
+            if (album) {
+                result = await MediaLibrary.addAssetsToAlbumAsync(asset.id, album.id, false);
+            }
+            else {
+                album = await MediaLibrary.createAlbumAsync("Expo", asset.id, false)
+            }
+            const newPhoto = await MediaLibrary.getAssetsAsync({
+                first: 1,
+                album: album.id,
+                sortBy: MediaLibrary.SortBy.creationTime,
+            })
+            this.props.receivePhoto(newPhoto.assets[0]) 
         }
     };
 
     render() {
         const camWidth = Dimensions.get("window").width
         const camHeight = camWidth * (16 / 9)
-
+        
         return (
             <Camera
                 style={{ height: camHeight, width: camWidth }}
@@ -33,7 +39,6 @@ export default class CameraPreview extends Component {
                 autoFocus={true}
                 ratio={'16:9'}
                 ref={(cam) => this.cam = cam}
-                pictureSize={'4:3'}
             >
                 <Grid>
                     <Row size={4}></Row>
@@ -42,6 +47,7 @@ export default class CameraPreview extends Component {
                             flipCamera={this.props.flipCamera}
                             takePicture={this.takePicture}
                             images={this.props.images}
+                            navigateToGallery={this.props.navigateToGallery}
                         />
                     </Row>
                 </Grid>

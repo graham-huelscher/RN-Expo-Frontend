@@ -1,11 +1,14 @@
-import { MainFeed, Login, Register, AuthLoading, Camera, UserActivity } from '../screens'
+import { MainFeed, Login, Register, AuthLoading, Camera, UserActivity, Gallery1 } from '../screens'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+
+const CameraStack = createStackNavigator({Camera, Gallery1}, {headerMode: "none"})
+
 const Tabs = createBottomTabNavigator({
   MainFeed,
-  Camera,
+  CameraStack,
   UserActivity
 },
   {
@@ -13,7 +16,6 @@ const Tabs = createBottomTabNavigator({
     navigationOptions: {
       title: "Expo"
     }
-
   })
 
 const AppStack = createStackNavigator({ Tabs });

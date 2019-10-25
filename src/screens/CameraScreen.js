@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 
+
 class CameraScreen extends Component {
     state = {
         hasCameraPermission: true,
@@ -17,18 +18,18 @@ class CameraScreen extends Component {
         const { totalCount } = await MediaLibrary.getAssetsAsync()
         const numImagesToGet = Math.min(totalCount, 500)
 
-        const assetResult = await MediaLibrary.getAssetsAsync({
+        const mediaLibrary = await MediaLibrary.getAssetsAsync({
             sortBy: MediaLibrary.SortBy.creationTime,
             first: numImagesToGet,
 
         })
         this.setState({
-            fileSystemImages: assetResult.assets
+            fileSystemImages: mediaLibrary.assets
         })
         // console.log('here') 
         // const { camStatus } = await this.getCamPermission();
         // console.log(camStatus)
-        // console.log('here2')
+        // console.log('here2') 
         // // const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
 
         // //console.log(mediaStatus)
@@ -42,8 +43,14 @@ class CameraScreen extends Component {
 
     }
 
-    receivePhoto = (photo) => {
-        console.log(photo)
+    receivePhoto = (photo) => { 
+        this.setState({
+            fileSystemImages: [photo, ...this.state.fileSystemImages]
+        })
+    } 
+
+    navigateToGallery = () => {
+        this.props.navigation.navigate("Gallery1", {photos: this.state.fileSystemImages}) 
     }
 
     renderCamera = () => {
@@ -57,7 +64,8 @@ class CameraScreen extends Component {
                 type={this.state.type} 
                 flipCamera={this.flipCamera} 
                 receivePhoto={this.receivePhoto}
-                images={this.state.fileSystemImages}                
+                images={this.state.fileSystemImages}
+                navigateToGallery={this.navigateToGallery}                
                 />
             )
         }

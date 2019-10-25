@@ -4,6 +4,9 @@ import Register from './Register'
 import AuthLoading from './AuthLoading'
 import Camera from './CameraScreen'
 import UserActivity from './UserActivity'
+import Gallery from './Gallery'
+import Gallery1 from './Gallery1'
+
 
 
 export {
@@ -12,5 +15,7 @@ export {
     AuthLoading,
     Camera,
     UserActivity,
-    Register
+    Register,
+    Gallery,
+    Gallery1
 }

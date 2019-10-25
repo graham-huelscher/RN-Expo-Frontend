@@ -9,10 +9,12 @@ export default (props) => {
         <React.Fragment>
             <Col></Col>
             <Col style={styles.icons}>
+            <TouchableOpacity onPress={() => props.navigateToGallery()}>
                 <View style={styles.galleryPreview}>
                     {props.images ? <Image source={{ uri: props.images[0].uri }}
                         style={styles.image} /> : null}
                 </View>
+                </TouchableOpacity>
             </Col>
             <Col style={styles.icons}>
                 <TouchableOpacity onPress={() => props.takePicture()}>
