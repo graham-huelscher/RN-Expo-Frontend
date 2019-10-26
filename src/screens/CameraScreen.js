@@ -10,38 +10,45 @@ import { Camera } from 'expo-camera';
 class CameraScreen extends Component {
     state = {
         hasCameraPermission: true,
+        hasMediaPermission: null,
         type: Camera.Constants.Type.back,
         fileSystemImages: null
     };
 
     async componentDidMount() {
+        
+        const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+        this.getMediaPics()  
+        
+        // const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
+        // console.log(camStatus)
+        // // const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+        // // console.log(mediaStatus)
+
+        // //this.setState({ hasCameraPermission: camStatus === 'granted', hasMediaPermission: mediaStatus === 'granted' }, () => this.getMediaPics());
+        // this.setState({ hasCameraPermission: camStatus === 'granted'});
+    }
+
+    getMediaPics = async () => {
         const { totalCount } = await MediaLibrary.getAssetsAsync()
         const numImagesToGet = Math.min(totalCount, 500)
 
         const mediaLibrary = await MediaLibrary.getAssetsAsync({
             sortBy: MediaLibrary.SortBy.creationTime,
             first: numImagesToGet,
-
         })
+
         this.setState({
             fileSystemImages: mediaLibrary.assets
         })
-        // console.log('here') 
-        // const { camStatus } = await this.getCamPermission();
-        // console.log(camStatus)
-        // console.log('here2') 
-        // // const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
-        // //console.log(mediaStatus)
-        // this.setState({ hasCameraPermission: camStatus === 'granted' });
     }
 
-    getCamPermission = async () => {
+    // getCamPermission = async () => {
 
-        const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
-        return camStatus
+    //     const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
+    //     return camStatus
 
-    }
+    // }
 
     receivePhoto = (photo) => { 
         this.setState({
@@ -50,7 +57,7 @@ class CameraScreen extends Component {
     } 
 
     navigateToGallery = () => {
-        this.props.navigation.navigate("Gallery1", {photos: this.state.fileSystemImages}) 
+        this.props.navigation.navigate("Gallery", {photos: this.state.fileSystemImages}) 
     }
 
     renderCamera = () => {
