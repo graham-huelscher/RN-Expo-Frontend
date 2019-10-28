@@ -18,6 +18,11 @@ export default class ImagePickerExample extends React.Component {
           title="Pick an image from camera roll"
           onPress={this._pickImage}
         />
+        
+        <Button
+          title="Open Camera"
+          onPress={this.launchCamera} 
+        />
         {image &&
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       </View>
@@ -54,7 +59,7 @@ export default class ImagePickerExample extends React.Component {
   launchCamera = async () => {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
-        aspect: [1,1]
+        aspect: [3,4] 
       })
       if (!result.cancelled) {
         this.setState({ image: result.uri });

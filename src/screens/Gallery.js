@@ -1,68 +1,28 @@
-import * as React from 'react';
-import { Button, Image, View } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+import React, { useState } from 'react';
+import { FlatList, Image } from 'react-native';
+import Photo from '../components/Photo'
 
-export default class ImagePickerExample extends React.Component {
-  state = {
-    image: null,
-  };
+export default (props) => {
 
-  render() {
-    let { image } = this.state;
+    const [selectedPhoto, selectPhoto] = useState("")
+
+    const photos = props.navigation.getParam("photos", [])
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button
-          title="Pick an image from camera roll"
-          onPress={this._pickImage}
+        <FlatList
+            data={photos}
+            renderItem={({ item }) => (
+                <Photo
+                    id={item.id}
+                    uri={item.uri}
+                    selectedPhoto={selectedPhoto}
+                    selectPhoto={selectPhoto}
+                />
+            )}
+            keyExtractor={photo => photo.id}
+            extraData={selectedPhoto}
+            horizontal={false}
+            numColumns={3}
         />
-        
-        <Button
-          title="Open Camera"
-          onPress={this.launchCamera} 
-        />
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      </View>
     );
-  }
-
-  componentDidMount() {
-    this.getPermissionAsync();
-  }
-
-  getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-    }
-  }
-
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
-
-  launchCamera = async () => {
-      let result = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [3,4] 
-      })
-      if (!result.cancelled) {
-        this.setState({ image: result.uri });
-      }
-  }
 }

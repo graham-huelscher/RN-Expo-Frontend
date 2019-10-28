@@ -10,23 +10,12 @@ import { Camera } from 'expo-camera';
 class CameraScreen extends Component {
     state = {
         hasCameraPermission: true,
-        hasMediaPermission: null,
         type: Camera.Constants.Type.back,
         fileSystemImages: null
     };
 
     async componentDidMount() {
-        
-        const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
         this.getMediaPics()  
-        
-        // const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
-        // console.log(camStatus)
-        // // const { mediaStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-        // // console.log(mediaStatus)
-
-        // //this.setState({ hasCameraPermission: camStatus === 'granted', hasMediaPermission: mediaStatus === 'granted' }, () => this.getMediaPics());
-        // this.setState({ hasCameraPermission: camStatus === 'granted'});
     }
 
     getMediaPics = async () => {
@@ -42,13 +31,6 @@ class CameraScreen extends Component {
             fileSystemImages: mediaLibrary.assets
         })
     }
-
-    // getCamPermission = async () => {
-
-    //     const { camStatus } = await Permissions.askAsync(Permissions.CAMERA);
-    //     return camStatus
-
-    // }
 
     receivePhoto = (photo) => { 
         this.setState({
@@ -93,7 +75,7 @@ class CameraScreen extends Component {
         if (hasCameraPermission === null) {
             return <View />;
         } else if (hasCameraPermission === false) {
-            return <Button title="Re-ask permissions" onPress={() => { this.getCamPermission() }}></Button>;
+            return <Text>Permission denied.</Text>;
         } else {
             return (
                 <View style={{ flex: 1 }}>
