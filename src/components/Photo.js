@@ -1,27 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ImageBackground, TouchableWithoutFeedback, Dimensions, View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default (props) => {
-    const [isSelected, toggleIsSelected] = useState(false)
-
-    if (props.selectedPhoto === props.id) { //&& isSelected !isSelected
-        toggleIsSelected(!isSelected)
-    }
 
     const screenWidth = Dimensions.get("window").width
     return (
         <TouchableWithoutFeedback onPress={() => {
-            console.log(isSelected)
-            toggleIsSelected(!isSelected)
-            props.selectPhoto(props.id)
+            if(props.selectedPhoto === props.id) 
+                props.selectPhoto(null)
+            else
+                props.selectPhoto(props.id)
         }}>
 
             <View>
                 <ImageBackground source={{ uri: props.uri }}
                     style={{ width: screenWidth / 3, height: screenWidth / 3 }}
                 >
-                    {isSelected ?
+                    {props.selectedPhoto === props.id ?
                         <View style={{
                             width: screenWidth / 3,
                             height: screenWidth / 3,

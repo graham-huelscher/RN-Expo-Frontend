@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 import { withNavigationFocus } from "react-navigation";
 import CameraPreview from '../components/Camera/CameraPreview'
-import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 
@@ -15,7 +14,7 @@ class CameraScreen extends Component {
     };
 
     async componentDidMount() {
-        this.getMediaPics()  
+        this.getMediaPics()
     }
 
     getMediaPics = async () => {
@@ -32,29 +31,36 @@ class CameraScreen extends Component {
         })
     }
 
-    receivePhoto = (photo) => { 
+    receivePhoto = (photo) => {
         this.setState({
             fileSystemImages: [photo, ...this.state.fileSystemImages]
         })
-    } 
+    }
 
     navigateToGallery = () => {
-        this.props.navigation.navigate("Gallery", {photos: this.state.fileSystemImages}) 
+        this.props.navigation.navigate("Gallery", { photos: this.state.fileSystemImages })
     }
 
     renderCamera = () => {
         const isFocused = this.props.navigation.isFocused();
+        /*this.getMediaPics() this may be causing crashes/performance issues 
+        VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. Object {
+  "contentLength": 8625,
+  "dt": 622,
+  "prevDt": 590,
+} */
 
         if (!isFocused) {
             return <View />;
         } else if (isFocused) {
             return (
-                <CameraPreview 
-                type={this.state.type} 
-                flipCamera={this.flipCamera} 
-                receivePhoto={this.receivePhoto}
-                images={this.state.fileSystemImages}
-                navigateToGallery={this.navigateToGallery}                
+                <CameraPreview
+                    type={this.state.type}
+                    flipCamera={this.flipCamera}
+                    receivePhoto={this.receivePhoto}
+                    images={this.state.fileSystemImages}
+                    navigateToGallery={this.navigateToGallery}
+                    style={{ flex: 1 }}
                 />
             )
         }

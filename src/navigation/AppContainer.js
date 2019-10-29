@@ -4,21 +4,17 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 
-const CameraStack = createStackNavigator({Camera, Gallery}, {headerMode: "none"})
+const CameraStack = createStackNavigator({ Camera, Gallery })
+const MainFeedStack = createStackNavigator({ MainFeed })
+const UserActivityStack = createStackNavigator({ UserActivity })
 
 const Tabs = createBottomTabNavigator({
-  MainFeed,
+  MainFeedStack,
   CameraStack,
-  UserActivity
-},
-  {
-    initialRouteName: 'MainFeed',
-    navigationOptions: {
-      title: "Expo"
-    }
-  })
+  UserActivityStack
+})
 
-const AppStack = createStackNavigator({ Tabs });
+//const AppStack = createStackNavigator({  });
 const AuthStack = createStackNavigator({ Login, Register });
 
 
@@ -26,7 +22,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoading,
-      App: AppStack,
+      App: Tabs,
       Auth: AuthStack,
     },
     {

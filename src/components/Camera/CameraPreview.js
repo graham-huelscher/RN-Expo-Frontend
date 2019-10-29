@@ -24,17 +24,17 @@ export default class CameraPreview extends Component {
                 album: album.id,
                 sortBy: MediaLibrary.SortBy.creationTime,
             })
-            this.props.receivePhoto(newPhoto.assets[0]) 
+            this.props.receivePhoto(newPhoto.assets[0])
         }
     };
 
     render() {
         const camWidth = Dimensions.get("window").width
         const camHeight = camWidth * (16 / 9)
-        
+
         return (
             <Camera
-                style={{ height: camHeight, width: camWidth }}
+                style={{ flex: 1 }}
                 type={this.props.type}
                 autoFocus={true}
                 ratio={'16:9'}
@@ -42,7 +42,7 @@ export default class CameraPreview extends Component {
             >
                 <Grid>
                     <Row size={4}></Row>
-                    <Row size={1} style={{ backgroundColor: "transparent", paddingBottom: 50 }}>
+                    <Row size={1} style={{ backgroundColor: "transparent" }}>
                         <ButtonBar
                             flipCamera={this.props.flipCamera}
                             takePicture={this.takePicture}
