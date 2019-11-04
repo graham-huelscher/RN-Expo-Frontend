@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { View, Button, AsyncStorage } from 'react-native';
-import PostFeed from '../components/PostFeed'
+import PostFeed  from '../components/Post/PostFeed'
 
 class MainFeed extends Component {
 
@@ -12,7 +12,6 @@ class MainFeed extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        <Button title="Actually, sign me out :)" onPress={this.signOutAsync} />
         <PostFeed />
       </View>
     );

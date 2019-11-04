@@ -7,17 +7,17 @@ export default (props) => {
     const screenWidth = Dimensions.get("window").width
     return (
         <TouchableWithoutFeedback onPress={() => {
-            if(props.selectedPhoto === props.id) 
+            if(props.selectedPhoto && props.selectedPhoto.id === props.photo.id) 
                 props.selectPhoto(null)
             else
-                props.selectPhoto(props.id)
+                props.selectPhoto(props.photo)
         }}>
 
             <View>
-                <ImageBackground source={{ uri: props.uri }}
+                <ImageBackground source={{ uri: props.photo.uri }}
                     style={{ width: screenWidth / 3, height: screenWidth / 3 }}
                 >
-                    {props.selectedPhoto === props.id ?
+                    {(props.selectedPhoto && props.selectedPhoto.id === props.photo.id ) ?
                         <View style={{
                             width: screenWidth / 3,
                             height: screenWidth / 3,

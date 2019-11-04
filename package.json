@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
+    "axios": "^0.19.0",
     "expo": "^35.0.0",
     "expo-camera": "~7.0.0",
     "expo-font": "~7.0.0",
     "expo-image-picker": "~7.0.0",
     "expo-media-library": "~7.0.0",
+    "form-data": "^2.5.1",
     "react": "16.8.3",
     "react-base": "^0.2.0",
     "react-dom": "16.8.3",
