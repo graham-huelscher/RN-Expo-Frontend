@@ -16,22 +16,26 @@ const createFormData = (photo, body) => {
     return data;
 }
 
+const api = 'https://fierce-sea-12319.herokuapp.com/'
+
 export default PhotoController = {
     uploadPhoto: async (photo, body) => {
         const formData = createFormData(photo, body)
         console.log(formData)
-        await axios.post('http://localhost:8080/api/photos/', formData, {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .catch(error => {
-                throw error
-            })
+        // await axios.post(`${api}photos`, formData, {
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type': 'multipart/form-data'
+        //     }
+        // })
+        //     .catch(error => {
+        //         throw error
+        //     })
+        console.log(await axios.post(`${api}photos/`, {hello: "yes"}))
     },
     test: async () => {
-        const response = await axios.get('http://localhost:8080/test')
+        console.log("here") 
+        const response = await axios.get(`${api}test`)
         console.log(response.data)
     }
 }

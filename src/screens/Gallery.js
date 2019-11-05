@@ -9,8 +9,8 @@ export default (props) => {
 
     const photos = props.navigation.getParam("photos", [])
     const uploadPhoto = () => {
-        //PhotoController.uploadPhoto(selectedPhoto, null)
-        PhotoController.test()
+        PhotoController.uploadPhoto(selectedPhoto, null)
+        //PhotoController.test()
     } 
     return (
         <View style={{flex: 1}}>
