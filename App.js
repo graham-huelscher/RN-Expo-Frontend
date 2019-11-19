@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AppContainer from './src/navigation/AppContainer'
 import * as Permissions from 'expo-permissions';
 
+
 export default class App extends Component {
   state = {
     camRollPermissions: null,

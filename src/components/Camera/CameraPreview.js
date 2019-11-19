@@ -29,8 +29,6 @@ export default class CameraPreview extends Component {
     };
 
     render() {
-        const camWidth = Dimensions.get("window").width
-        const camHeight = camWidth * (16 / 9)
 
         return (
             <Camera

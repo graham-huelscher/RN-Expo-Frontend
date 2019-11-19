@@ -1,41 +1,60 @@
 import axios from 'axios'
+import { Platform } from 'react-native';
+import path from 'path'
 
-const createFormData = (photo, body) => {
-    const data = new FormData()
-    data.append('file', {
-        name: photo.id,
-        //uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
-        uri: photo.uri
-    });
-    if (body) {
-        Object.keys(body).forEach(key => {
-            data.append(key, body[key])
-        });
-    }
-
-    return data;
-}
-
-const api = 'https://fierce-sea-12319.herokuapp.com/'
+const api = 'https://fierce-sea-12319.herokuapp.com'
 
 export default PhotoController = {
-    uploadPhoto: async (photo, body) => {
-        const formData = createFormData(photo, body)
-        console.log(formData)
-        // await axios.post(`${api}photos`, formData, {
-        //     headers: {
-        //         Accept: 'application/json',
-        //         'Content-Type': 'multipart/form-data'
-        //     }
+    uploadPhoto: async (photo) => {
+
+        console.log(photo)
+
+        const data = new FormData();
+        data.append('photo',
+            {
+                uri: photo.uri,
+                name: '',
+                type:'image/jpg' 
+            });
+
+        const res = await axios.post(`${api}/api/photos`, data)
+            .catch(error => { throw error }); 
+        console.log(res) 
+        // const data = new FormData();
+        // data.append('name', 'testName'); // you can append anyone.
+        // data.append('photo', {
+        //     uri: photo.uri,
+        //     type: 'image/jpeg', // or photo.type
+        //     name: 'testPhotoName'
+        // });
+        // fetch(url, {
+        //     method: 'post',
+        //     body: data
+        // }).then(res => {
+        //     console.log(res)
+        // });
+
+
+        // const formData = createFormData(photo);
+        // console.log(formData)
+
+        // const res = await axios({
+        //     url: `${api}/api/photos`,
+        //     method: "POST",
+        //     data: formData
+
         // })
-        //     .catch(error => {
-        //         throw error
+
+        // const res = axios.post(`${api}/api/photos`, formData, {
+        //         headers: {
+        //             Accept: 'application/json',
+        //             'Content-Type': 'multipart/form-data'
+        //         }
         //     })
-        console.log(await axios.post(`${api}photos/`, {hello: "yes"}))
+        //});
     },
-    test: async () => {
-        console.log("here") 
-        const response = await axios.get(`${api}test`)
+    getPhoto: async () => {
+        const response = await axios.get(`${api}/api/photos`)
         console.log(response.data)
     }
 }
